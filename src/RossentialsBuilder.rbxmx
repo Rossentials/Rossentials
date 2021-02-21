@@ -1,0 +1,66 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="Folder" referent="RBX458304FD33424BB3A2649ECE2EF97501">
+		<Properties>
+			<BinaryString name="AttributesSerialize"></BinaryString>
+			<string name="Name">RossentialsBuilder</string>
+			<int64 name="SourceAssetId">-1</int64>
+			<BinaryString name="Tags"></BinaryString>
+		</Properties>
+		<Item class="Script" referent="RBXE7769F573447445B9C86EF876D1826E1">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">RossentialsCoreLoader</string>
+				<string name="ScriptGuid">{FC3EC56E-DBD2-49B5-9F7B-3AA7D7805B2D}</string>
+				<ProtectedString name="Source"><![CDATA[local initialTime = os.time()
+
+repeat
+	wait()
+until os.time() - initialTime > 10 or _G.ROSSENTIALS_DATA
+
+REQUIRED_VERSION = script.Parent.REQUIRED_VERSION.Value
+PLUGIN_NAME = script.Parent.Name
+
+if not _G.ROSSENTIALS_DATA then
+	print(PLUGIN_NAME .. ": RossentialsCore not found, please make sure this plugin is installed and enabled.")
+elseif not _G.ROSSENTIALS_DATA.CoreCode.has_required_core_version(_G.ROSSENTIALS_DATA.CoreCode.version_to_hex(REQUIRED_VERSION)) then
+	print(PLUGIN_NAME .. ": Unsupported version of RossentialsCore was found, please update RossentialsCore.")
+else
+	_G.ROSSENTIALS_DATA.CoreCode.initialize(require(script.Parent:WaitForChild("PluginModule")))
+end]]></ProtectedString>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="StringValue" referent="RBX0D49C2F14D9A42D7A794DEE50B6C86EA">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<string name="Name">REQUIRED_VERSION</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+				<string name="Value">1.0.1</string>
+			</Properties>
+		</Item>
+		<Item class="ModuleScript" referent="RBX3D0222A637F14359997C5B5F45633910">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">PluginModule</string>
+				<string name="ScriptGuid">{CC4CEBB3-9297-4D82-885A-F41E02463A0E}</string>
+				<ProtectedString name="Source"><![CDATA[local module = {}
+
+function module.initialized()
+	print("RossentialsBuilder initialized")
+end
+
+return module
+]]></ProtectedString>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+	</Item>
+</roblox>
