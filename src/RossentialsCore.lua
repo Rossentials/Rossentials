@@ -17,7 +17,7 @@ CoreCode.version_to_hex = function(version)
 	return v
 end
 
-local Version = CoreCode.version_to_hex("1.0.3")
+local Version = CoreCode.version_to_hex("1.0.4")
 
 CoreCode.has_required_core_version = function(required_version)
 	return Version >= required_version
@@ -37,6 +37,8 @@ CoreCode.create_button = function(toolbar, title, tooltip, icon)
 	
 	if not icon then
 		icon = "rbxassetid://9536700"
+	elseif type(icon) == "number" then
+		icon = "rbxassetid://" .. tostring(icon)
 	end
 	
 	local button = toolbar:CreateButton(title, tooltip, icon)
@@ -77,13 +79,13 @@ end
 
 local toolbar = CoreCode.create_toolbar(plugin, "RossentialsCore")
 
-local unitTest = CoreCode.create_button(toolbar, "Dump info", "Dumps some info about the RossentialsCore plugin.")
+local unitTest = CoreCode.create_button(toolbar, "Dump info", "Dumps some info about the RossentialsCore plugin.", 817367645)
 CoreCode.add_click_event(unitTest, function()
 	print("RossentialsCore version: " .. Version)
 	print("Module count: " .. #_G.ROSSENTIALS_DATA.Modules)
 end)
 
-local virusDetector = CoreCode.create_button(toolbar, "Virus detector", "Detects scripts that could potentionally be viruses.")
+local virusDetector = CoreCode.create_button(toolbar, "Virus detector", "Detects scripts that could potentionally be viruses.", 4555772172)
 CoreCode.add_click_event(virusDetector, function()
 	for _, inst in pairs(Selection:Get()) do
 		local dangers = {}
@@ -119,6 +121,12 @@ CoreCode.add_click_event(virusDetector, function()
 				
 				if src:find(".parent=nil") then
 					dangerLevel += 1
+				end
+				
+				for i = 0, 9 do
+					if src:find("require(" .. tostring(i)) then
+						dangerLevel += 1
+					end
 				end
 			end
 			

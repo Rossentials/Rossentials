@@ -1,14 +1,14 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXD7B9A8D04FF54C54B7E589C2E3EFB0D5">
+	<Item class="Folder" referent="RBX793BA82F40DF4A57808A7172F89DD290">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<string name="Name">RossentialsScripter</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBX3D4D567E8E044131ABE6DB4FDEDDB76E">
+		<Item class="Script" referent="RBX5F3DCCA7BC714E2F858522E6467F3314">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="Disabled">false</bool>
@@ -35,16 +35,16 @@ end]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="StringValue" referent="RBXABC77A81476A4D7DB7E96EFEBE86D95D">
+		<Item class="StringValue" referent="RBXAFFD6D13862E4DF68A544BAF6BA4A234">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<string name="Name">REQUIRED_VERSION</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
-				<string name="Value">1.0.3</string>
+				<string name="Value">1.0.4</string>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX921C2919C7004DF89D7226A063B63393">
+		<Item class="ModuleScript" referent="RBX3BDB22CDCD1240DEBFF871D866A64850">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<Content name="LinkedSource"><null></null></Content>
@@ -56,11 +56,40 @@ local module = {}
 
 function module.initialized()
 	local toolbar = _G.ROSSENTIALS_DATA.CoreCode.create_toolbar(script.Parent.Parent, "RossentialsScripter")
-	local printPath = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Get Instance's path", "Prints the selected Instance's full path to the output, if multiple instances it prints all selected Instances' full paths to the output.")
+	
+	-- Print path
+	local printPath = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Get Instance's path", "Prints the selected Instance's full path to the output, if multiple instances it prints all selected Instances' full paths to the output.", 413369851)
 	_G.ROSSENTIALS_DATA.CoreCode.add_click_event(printPath, function()
 		for _, inst in pairs(Selection:Get()) do
 			print(_G.ROSSENTIALS_DATA.CoreCode.getInstanceFullPath(inst))
 		end
+	end)
+	
+	-- Insert script
+	local function insert_script(parent, scriptType)
+		local inst = Instance.new(scriptType, parent)
+		inst.Name = scriptType
+	end
+	
+	local insertScript_Server = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Insert server script", "Inserts a server script into the selected Instance.", 413369851)
+	_G.ROSSENTIALS_DATA.CoreCode.add_click_event(insertScript_Server, function()
+		local selected = Selection:Get()
+		assert(#selected == 1)
+		insert_script(selected[1], "Script")
+	end)
+	
+	local insertScript_Client = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Insert client script", "Inserts a client script into the selected Instance.", 413366777)
+	_G.ROSSENTIALS_DATA.CoreCode.add_click_event(insertScript_Client, function()
+		local selected = Selection:Get()
+		assert(#selected == 1)
+		insert_script(selected[1], "LocalScript")
+	end)
+	
+	local insertScript_Module = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Insert module script", "Inserts a module script into the selected Instance.", 4692662464)
+	_G.ROSSENTIALS_DATA.CoreCode.add_click_event(insertScript_Module, function()
+		local selected = Selection:Get()
+		assert(#selected == 1)
+		insert_script(selected[1], "ModuleScript")
 	end)
 	
 	print("RossentialsScripter initialized")

@@ -1,14 +1,14 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX458304FD33424BB3A2649ECE2EF97501">
+	<Item class="Folder" referent="RBX1B1212DD59D94436B97E1F7158901378">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<string name="Name">RossentialsBuilder</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBXE7769F573447445B9C86EF876D1826E1">
+		<Item class="Script" referent="RBXC42551DB1BC0462C9DD71E27120294D9">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="Disabled">false</bool>
@@ -35,16 +35,16 @@ end]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="StringValue" referent="RBX0D49C2F14D9A42D7A794DEE50B6C86EA">
+		<Item class="StringValue" referent="RBXFBEA379595AB4C4E9777AE7A2D89B10D">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<string name="Name">REQUIRED_VERSION</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
-				<string name="Value">1.0.1</string>
+				<string name="Value">1.0.4</string>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBX3D0222A637F14359997C5B5F45633910">
+		<Item class="ModuleScript" referent="RBX237E2DB8BB5A4D3CA12E8DD97DC0EC34">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<Content name="LinkedSource"><null></null></Content>
@@ -53,6 +53,21 @@ end]]></ProtectedString>
 				<ProtectedString name="Source"><![CDATA[local module = {}
 
 function module.initialized()
+	local toolbar = _G.ROSSENTIALS_DATA.CoreCode.create_toolbar(script.Parent.Parent, "RossentialsBuilder")
+	
+	local partCounter = _G.ROSSENTIALS_DATA.CoreCode.create_button(toolbar, "Part counter", "Counts the amount of parts in your workspace and prints it to the output window.", 427534842)
+	_G.ROSSENTIALS_DATA.CoreCode.add_click_event(partCounter, function()
+		local count = 0
+		for _, inst in pairs(game.Workspace:GetDescendants()) do
+			if inst:IsA("BasePart") then
+				count += 1
+			end
+		end
+		print("Part counter: " .. tostring(count))
+	end)
+	
+	
+	
 	print("RossentialsBuilder initialized")
 end
 
