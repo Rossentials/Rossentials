@@ -13,3 +13,7 @@
 
 * RossentialsEx
 *This plugin doesn't exist yet, but it's planned to only have simple and optional features.*
+
+***
+
+*Roblox Devforum topic:* https://devforum.roblox.com/t/rossentials-update-log/1059772
